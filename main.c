@@ -25,6 +25,13 @@ void swap_rows(double matrix[][MAX_SIZE + 1], int row1, int row2, int n) {
     }
 }
 
-void main (void) {
+void scale_pivot_row(double matrix[][MAX_SIZE + 1], int row, double pivot_value, int num_cols) {
+    for (int k = 0; k <= num_cols; k++) {
+     matrix[row][k] /= pivot_value;
+    }
+}
+
+
+void main(void) {
 
 }
