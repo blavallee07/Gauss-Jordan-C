@@ -27,10 +27,23 @@ void swap_rows(double matrix[][MAX_SIZE + 1], int row1, int row2, int n) {
 
 void scale_pivot_row(double matrix[][MAX_SIZE + 1], int row, double pivot_value, int num_cols) {
     for (int k = 0; k <= num_cols; k++) {
-     matrix[row][k] /= pivot_value;
+        matrix[row][k] /= pivot_value; // scaling the pivot row by exact double multiple to garner a 1
     }
 }
 
+void elim_col(double matrix[][MAX_SIZE + 1], int col, int pivot_row, int num_cols, int num_rows) {
+    for (int k = 0; k < num_rows; k++) {
+        if (k == pivot_row) {
+           continue; // skip this row
+        }
+        // do the elimination for row k
+        double factor = matrix[k][col];
+        for (int j = 0; j < num_cols; j++) {
+            matrix[k][j] = matrix[k][j] - factor * matrix[pivot_row][j];
+        }
+
+    }
+}
 
 void main(void) {
 
