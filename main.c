@@ -2,7 +2,7 @@
 #include <stdlib.h>  // For memory allocation
 #include <math.h>    // For fabs() - CRITICAL for finding the pivot
 
-#define MAX_SIZE 1000  // The MAXIMUM size allowed for a matrix
+#define MAX_SIZE 1000  // The MAXIMUM size allowed for a matrix (ammount of memory c will allocate for this program)
 
 void find_pivot_row(double matrix[][MAX_SIZE + 1], int n, int col, int *pivot_row) {
     *pivot_row = col;
@@ -45,6 +45,40 @@ void elim_col(double matrix[][MAX_SIZE + 1], int col, int pivot_row, int num_col
     }
 }
 
-void main(void) {
-
+int main(void) {
+    // Steps for the program:
+    double matrix[MAX_SIZE][MAX_SIZE + 1];
+    int n;
+    
+    // Step 1: take input
+    printf("Enter size of matrix: ");
+    scanf("%d", &n);
+    printf("Enter the augmented matrix [A|b] row by row:\n");
+    printf("(Each row should have %d values)\n", n + 1);
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j <= n; j++) {
+            scanf("%lf", &matrix[i][j]);
+        }
+    }
+    
+    // Step 2: process input through algorithm
+    for (int i = 0; i < n; i++) {
+        int pivot;
+        find_pivot_row(matrix, n, i, &pivot);
+        
+        if (pivot != i) {
+            swap_rows(matrix, pivot, i, n);
+        }
+        
+        scale_pivot_row(matrix, i, matrix[i][i], n);
+        elim_col(matrix, i, i, n, n);
+    }
+    
+    // Step 3: output
+    for (int i = 0; i < n; i++) {
+        printf("x%d = %f\n", i, matrix[i][n]);
+    }
+    
+    return 0;
 }
