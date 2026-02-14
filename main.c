@@ -38,7 +38,7 @@ void elim_col(double matrix[][MAX_SIZE + 1], int col, int pivot_row, int num_col
         }
         // do the elimination for row k
         double factor = matrix[k][col];
-        for (int j = 0; j < num_cols; j++) {
+        for (int j = 0; j <= num_cols; j++) {
             matrix[k][j] = matrix[k][j] - factor * matrix[pivot_row][j];
         }
 
@@ -53,6 +53,13 @@ int main(void) {
     // Step 1: take input
     printf("Enter size of matrix: ");
     scanf("%d", &n);
+
+    // Validate input:
+    if (n > MAX_SIZE || n < 1) {
+       printf("Error: Size must be between 1 and %d\n", MAX_SIZE);
+       return 1;
+     }
+
     printf("Enter the augmented matrix [A|b] row by row:\n");
     printf("(Each row should have %d values)\n", n + 1);
     
